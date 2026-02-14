@@ -6,14 +6,13 @@
     <title>Be My Valentine?</title>
     <script>
       (function () {
-        var base = "/Be-my-valentine/";
         var path = window.location.pathname;
+        var segments = path.split("/").filter(Boolean);
+        var base = segments.length > 0 ? "/" + segments[0] + "/" : "/";
         var query = window.location.search || "";
         var hash = window.location.hash || "";
-        if (path.indexOf(base) !== 0) {
-          path = base;
-        }
-        var redirectTo = base + "?" + "redirect=" + encodeURIComponent(path.replace(base, "/") + query + hash);
+        var rest = segments.length > 1 ? "/" + segments.slice(1).join("/") : "/";
+        var redirectTo = base + "?" + "redirect=" + encodeURIComponent(rest + query + hash);
         window.location.replace(redirectTo);
       })();
     </script>

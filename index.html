@@ -24,8 +24,11 @@
         var params = new URLSearchParams(window.location.search);
         var redirect = params.get("redirect");
         if (redirect) {
-          var base = "/Be-my-valentine";
-          var target = base + redirect;
+          var path = window.location.pathname;
+          var segments = path.split("/").filter(Boolean);
+          var base = segments.length > 0 ? "/" + segments[0] + "/" : "/";
+          var normalized = redirect.startsWith("/") ? redirect.slice(1) : redirect;
+          var target = base + normalized;
           window.history.replaceState(null, "", target);
         }
       })();
